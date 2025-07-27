@@ -69,17 +69,23 @@
             });
         }
         var bufferPause = false;
+        var checkProgInt;
 
         function syncMusicPlayState(event) {
             switch (event.data) {
                 case YT.PlayerState.PLAYING:
                     musicPlayer.playVideo();
+                    console.log("playing(m)")
+                    checkProgInt = setInterval(syncSkips,1000)
                     lyricsPlayer.mute();
                     break;
                 case YT.PlayerState.PAUSED:
+                    clearInterval(checkProgInt);
                     if (!bufferPause) {
                         musicPlayer.pauseVideo();
+                        console.log("pausing")
                     } else {
+                        console.log("resetb")
                         bufferPause = false;
                     }
                     break;
@@ -93,12 +99,11 @@
             switch (event.data) {
                 case YT.PlayerState.PLAYING:
                     lyricsPlayer.playVideo();
-                    break;
-                case YT.PlayerState.CUED:
-                    lyricsPlayer.pauseVideo();
+                    console.log("playing(l)")
                     break;
                 case YT.PlayerState.BUFFERING:
                     lyricsPlayer.pauseVideo();
+                    console.log("pausing4b")
                     bufferPause = true;
                     break;
                 case YT.PlayerState.ENDED:
@@ -114,6 +119,7 @@
             if (diff > 1 || diff < -1) {
                 musicPlayer.seekTo(currentTime + musicStartTime, true);
             }
+            prevTime = currentTime;
         }
     </script>
 </body>
