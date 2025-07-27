@@ -3,13 +3,15 @@
 
 <head>
     <style>
-        html, body {
+        html,
+        body {
             width: 99%;
             height: 99%;
+            background: black;
         }
 
         #lyrics {
-            width: 100%;
+            width: 100.5%;
             height: 100%;
         }
     </style>
@@ -24,6 +26,12 @@
         var lyrics = search.get("lyrics");
         var musicStartTime = search.get("musicStart");
         var lyricsStartTime = search.get("lyricsStart");
+        if (!musicStartTime) {
+            musicStartTime = 0;
+        }
+        if (!lyricsStartTime) {
+            lyricsStartTime = 0;
+        }
 
         var tag = document.createElement('script');
 
@@ -60,6 +68,7 @@
                 }
             });
         }
+        var bufferPause = false;
 
         function syncMusicPlayState(event) {
             switch (event.data) {
@@ -68,7 +77,11 @@
                     lyricsPlayer.mute();
                     break;
                 case YT.PlayerState.PAUSED:
-                    musicPlayer.pauseVideo();
+                    if (!bufferPause) {
+                        musicPlayer.pauseVideo();
+                    } else {
+                        bufferPause = false;
+                    }
                     break;
                 case YT.PlayerState.BUFFERING:
                     musicPlayer.pauseVideo();
@@ -81,15 +94,25 @@
                 case YT.PlayerState.PLAYING:
                     lyricsPlayer.playVideo();
                     break;
-                // case YT.PlayerState.CUED:
-                //     lyricsPlayer.pauseVideo();
-                //     break;
+                case YT.PlayerState.CUED:
+                    lyricsPlayer.pauseVideo();
+                    break;
                 case YT.PlayerState.BUFFERING:
                     lyricsPlayer.pauseVideo();
+                    bufferPause = true;
                     break;
                 case YT.PlayerState.ENDED:
                     lyricsPlayer.stopVideo();
                     break;
+            }
+        }
+
+        var prevTime = 0;
+        function syncSkips() {
+            var currentTime = lyricsPlayer.getCurrentTime() - lyricsStartTime;
+            var diff = currentTime - prevTime;
+            if (diff > 1 || diff < -1) {
+                musicPlayer.seekTo(currentTime + musicStartTime, true);
             }
         }
     </script>
