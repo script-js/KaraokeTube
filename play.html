@@ -114,6 +114,7 @@
         function syncSkips() {
             var currentTime = lyricsPlayer.getCurrentTime() - lyricsStartTime;
             var diff = currentTime - prevTime;
+            console.log(diff)
             if (diff > 1 || diff < -1) {
                 musicPlayer.seekTo(currentTime + musicStartTime, true);
             }
