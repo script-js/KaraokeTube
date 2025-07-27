@@ -55,6 +55,7 @@
             switch (event.data) {
                 case YT.PlayerState.PLAYING:
                     musicPlayer.playVideo();
+                    lyricsPlayer.mute();
                     break;
                 case YT.PlayerState.PAUSED:
                     musicPlayer.pauseVideo();
@@ -70,9 +71,9 @@
                 case YT.PlayerState.PLAYING:
                     lyricsPlayer.playVideo();
                     break;
-                case YT.PlayerState.CUED:
-                    lyricsPlayer.pauseVideo();
-                    break;
+                // case YT.PlayerState.CUED:
+                //     lyricsPlayer.pauseVideo();
+                //     break;
                 case YT.PlayerState.BUFFERING:
                     lyricsPlayer.pauseVideo();
                     break;
