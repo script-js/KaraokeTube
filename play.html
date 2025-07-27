@@ -98,12 +98,12 @@
                     lyricsPlayer.playVideo();
                     console.log("playing(l)")
                     break;
-                case YT.PlayerState.BUFFERING:
-                    lyricsPlayer.pauseVideo();
-                    console.log("pausing4b")
-                    bufferPause = true;
-                    setTimeout(function() {bufferPause = false},1000)
-                    break;
+                // case YT.PlayerState.BUFFERING:
+                //     lyricsPlayer.pauseVideo();
+                //     console.log("pausing4b")
+                //     bufferPause = true;
+                //     setTimeout(function() {bufferPause = false},1000)
+                //     break;
                 case YT.PlayerState.ENDED:
                     lyricsPlayer.stopVideo();
                     break;
