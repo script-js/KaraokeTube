@@ -115,7 +115,7 @@
             var currentTime = lyricsPlayer.getCurrentTime() - lyricsStartTime;
             var diff = currentTime - prevTime;
             console.log(diff)
-            if (diff > 1 || diff < -1) {
+            if (diff > 1.5 || diff < -1.5) {
                 musicPlayer.seekTo(currentTime + musicStartTime, true);
             }
             prevTime = currentTime;
