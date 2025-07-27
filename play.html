@@ -69,6 +69,7 @@
             });
         }
         var bufferPause = false;
+        var bufferPauseL = false;
         var checkProgInt;
 
         function syncMusicPlayState(event) {
@@ -91,6 +92,8 @@
                     break;
                 case YT.PlayerState.BUFFERING:
                     musicPlayer.pauseVideo();
+                    console.log("pausing4b(L)")
+                    bufferPauseL = true;
                     break;
             }
         }
@@ -98,7 +101,11 @@
         function syncLyricsPlayState(event) {
             switch (event.data) {
                 case YT.PlayerState.PLAYING:
-                    lyricsPlayer.playVideo();
+                    if (!bufferPauseL) {
+                        lyricsPlayer.playVideo();
+                    } else {
+                        bufferPauseL = false;
+                    }
                     console.log("playing(l)")
                     break;
                 case YT.PlayerState.BUFFERING:
