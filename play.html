@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    
+
 </head>
 
 <body>
@@ -14,6 +14,12 @@
         var lyrics = search.get("lyrics");
         var musicStartTime = search.get("musicStart");
         var lyricsStartTime = search.get("lyricsStart");
+
+        var tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var musicPlayer;
         var lyricsPlayer;
@@ -47,13 +53,13 @@
 
         function syncMusicPlayState(event) {
             switch (event.data) {
-                case YT.PlayerState.PLAYING: 
+                case YT.PlayerState.PLAYING:
                     musicPlayer.playVideo();
                     break;
-                case YT.PlayerState.PAUSED: 
+                case YT.PlayerState.PAUSED:
                     musicPlayer.pauseVideo();
                     break;
-                case YT.PlayerState.BUFFERING: 
+                case YT.PlayerState.BUFFERING:
                     musicPlayer.pauseVideo();
                     break;
             }
@@ -61,13 +67,13 @@
 
         function syncLyricsPlayState(event) {
             switch (event.data) {
-                case YT.PlayerState.PLAYING: 
+                case YT.PlayerState.PLAYING:
                     lyricsPlayer.playVideo();
                     break;
-                case YT.PlayerState.CUED: 
+                case YT.PlayerState.CUED:
                     lyricsPlayer.pauseVideo();
                     break;
-                case YT.PlayerState.BUFFERING: 
+                case YT.PlayerState.BUFFERING:
                     lyricsPlayer.pauseVideo();
                     break;
                 case YT.PlayerState.ENDED:
@@ -76,7 +82,6 @@
             }
         }
     </script>
-    <script src="https://www.youtube.com/iframe_api" onload="onYouTubeIframeAPIReady()"></script>
 </body>
 
 </html>
