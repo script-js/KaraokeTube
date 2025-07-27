@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+    <script src="https://www.youtube.com/iframe_api" onload="onYouTubeIframeAPIReady()"></script>
+</head>
+
+<body>
+    <div id="lyrics"></div>
+    <div id="music"></div>
+    <script>
+        var search = new URLSearchParams(location.search);
+        var music = search.get("music");
+        var lyrics = search.get("lyrics");
+        var musicStartTime = search.get("musicStart");
+        var lyricsStartTime = search.get("lyricsStart");
+
+        var musicPlayer;
+        var lyricsPlayer;
+        function onYouTubeIframeAPIReady() {
+            musicPlayer = new YT.Player('music', {
+                videoId: music,
+                start: musicStartTime,
+                height: '0',
+                width: '0',
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onStateChange': syncLyricsPlayState
+                }
+
+            });
+            lyricsPlayer = new YT.Player('lyrics', {
+                videoId: lyrics,
+                start: lyricsStartTime,
+                height: '0',
+                width: '0',
+                playerVars: {
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': syncMusicPlayState
+                }
+            });
+        }
+
+        function syncMusicPlayState(event) {
+            switch (event.data) {
+                case YT.PlayerState.PLAYING: 
+                    musicPlayer.playVideo();
+                    break;
+                case YT.PlayerState.PAUSED: 
+                    musicPlayer.pauseVideo();
+                    break;
+                case YT.PlayerState.BUFFERING: 
+                    musicPlayer.pauseVideo();
+                    break;
+            }
+        }
+
+        function syncLyricsPlayState(event) {
+            switch (event.data) {
+                case YT.PlayerState.PLAYING: 
+                    lyricsPlayer.playVideo();
+                    break;
+                case YT.PlayerState.CUED: 
+                    lyricsPlayer.pauseVideo();
+                    break;
+                case YT.PlayerState.BUFFERING: 
+                    lyricsPlayer.pauseVideo();
+                    break;
+                case YT.PlayerState.ENDED:
+                    lyricsPlayer.stopVideo();
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
