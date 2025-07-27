@@ -69,7 +69,6 @@
             });
         }
         var bufferPause = false;
-        var bufferPauseL = false;
         var checkProgInt;
 
         function syncMusicPlayState(event) {
@@ -85,15 +84,10 @@
                     if (!bufferPause) {
                         musicPlayer.pauseVideo();
                         console.log("pausing")
-                    } else {
-                        console.log("resetb")
-                        bufferPause = false;
                     }
                     break;
                 case YT.PlayerState.BUFFERING:
                     musicPlayer.pauseVideo();
-                    console.log("pausing4b(L)")
-                    bufferPauseL = true;
                     break;
             }
         }
@@ -101,17 +95,14 @@
         function syncLyricsPlayState(event) {
             switch (event.data) {
                 case YT.PlayerState.PLAYING:
-                    if (!bufferPauseL) {
-                        lyricsPlayer.playVideo();
-                    } else {
-                        bufferPauseL = false;
-                    }
+                    lyricsPlayer.playVideo();
                     console.log("playing(l)")
                     break;
                 case YT.PlayerState.BUFFERING:
                     lyricsPlayer.pauseVideo();
                     console.log("pausing4b")
                     bufferPause = true;
+                    setTimeout(function() {bufferPause = false},1000)
                     break;
                 case YT.PlayerState.ENDED:
                     lyricsPlayer.stopVideo();
