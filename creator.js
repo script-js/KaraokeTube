@@ -41,7 +41,7 @@ function showFrame(frame, id, time) {
 
 function getKaraokeURL() {
     // change to just play in prod
-    return `play.html?music=${instrumentalID}&lyrics=${lyricsID}&musicStart=${musicStart.value}&lyricsStart=${lyricStart.value}`;
+    return `play?music=${instrumentalID}&lyrics=${lyricsID}&musicStart=${musicStart.value}&lyricsStart=${lyricStart.value}`;
 }
 
 async function saveSong() {
