@@ -14,13 +14,19 @@
         'opsz' 24
 }
 
-#songForm {
+#songFormContainer {
     margin-bottom: 100px;
     display: flex;
     justify-content: center;
     gap: 5px;
     transition: ease 300ms;
     margin-top: 30%;
+}
+
+#songForm {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
 }
 
 body {
@@ -50,7 +56,9 @@ form {
 }
 
 form input,
-form button {
+form button,
+#songFormContainer input,
+#songFormContainer button {
     padding: 10px;
 }
 
@@ -67,7 +75,7 @@ input[type="submit"] {
 }
 
 form input[type="submit"],
-form button {
+#songFormContainer button {
     background: none;
     color: white;
     border-radius: 100%;

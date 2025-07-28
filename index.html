@@ -7,14 +7,16 @@
 </head>
 
 <body>
-    <form id="songForm">
-        <input placeholder="Song Name..." id="song" style="width: 50%;">
-        <input type="submit" value="search" class="material-symbols-outlined">
+    <div id="songFormContainer">
+        <form id="songForm" style="width: 50%;">
+            <input placeholder="Song Name..." id="song" style="width: 100%;">
+            <input type="submit" value="search" class="material-symbols-outlined">
+        </form>
         <button class="material-symbols-outlined" title="Save to Library" onclick="location.href = 'saves'"
             title="View Saved Songs">library_books</button>
         <button class="material-symbols-outlined" style="display: none;" id="savebtn" title="Save to Library"
             onclick="saveSong()">save</button>
-    </form>
+    </div>
     <p style="text-align: center;"><progress max="4" id="progress">Loading...</progress></p>
     <div class="videoContainer" id="vcLeft">
         <h1>Music</h1><iframe id="musicFrame" height="200" width="300" frameborder="0"></iframe>
@@ -31,7 +33,11 @@
     <script>
         songForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            findVideos(song.value);
+            if (song.value) {
+                findVideos(song.value);
+            } else {
+                alert("Please enter a song")
+            }
         })
     </script>
 </body>
