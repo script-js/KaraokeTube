@@ -61,3 +61,7 @@ async function saveSong() {
         localStorage.setItem("saves", JSON.stringify(saves));
     }
 }
+
+function parseID(url) {
+    return url.replace("youtu.be","youtube.com").split("youtube.com/")[1].replace("watch?v=","").replace("embed/","").split("?")[0].split("&")[0]
+}
