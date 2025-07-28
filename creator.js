@@ -4,6 +4,7 @@ var instrumentalID;
 var lyricsID;
 
 async function findVideos(song) {
+    document.title = song + " - KaraokeTube";
     progress.value = 0;
     progress.style.display = "inline"
     var instrumentals = await (await fetch("https://www.googleapis.com/youtube/v3/search?q=" + song + " instrumental&type=video&videoEmbeddable=true&key=AIzaSyA-ZFrKnMfSPvRnNzk2g7rMNuAEGnCmn00&part=snippet&maxResults=50")).json();
