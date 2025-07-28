@@ -8,11 +8,25 @@ async function findVideos(song) {
     progress.value = 0;
     progress.style.display = "inline"
     var instrumentals = await (await fetch("https://www.googleapis.com/youtube/v3/search?q=" + song + " instrumental&type=video&videoEmbeddable=true&key=AIzaSyA-ZFrKnMfSPvRnNzk2g7rMNuAEGnCmn00&part=snippet&maxResults=50")).json();
+    if (instrumentals.error) {
+        var error = instrumentals.error.errors[0]
+        alert("There was an error finding videos:\nError Code: " + error.domain + "." + error.reason + "\nFind videos manually on YouTube, or try again later.")
+        songFormContainer.style.marginTop = "20px";
+        showPreviews();
+        return;
+    }
     progress.value++;
     otherInstrumentals = instrumentals.items;
     var instrumental = instrumentals.items[0].id.videoId;
     progress.value++;
     var lyricVideos = await (await fetch("https://www.googleapis.com/youtube/v3/search?q=" + song + " lyric video&type=video&videoEmbeddable=true&key=AIzaSyA-ZFrKnMfSPvRnNzk2g7rMNuAEGnCmn00&part=snippet&maxResults=50")).json();
+    if (lyricVideos.error) {
+        var error = lyricVideos.error.errors[0]
+        alert("There was an error finding videos:\nError Code: " + error.domain + "." + error.reason + "\nFind videos manually on YouTube, or try again later.")
+        songFormContainer.style.marginTop = "20px";
+        showPreviews();
+        return;
+    }
     progress.value++;
     otherLyricVideos = lyricVideos.items;
     var lyrics = lyricVideos.items[0].id.videoId;
@@ -64,5 +78,5 @@ async function saveSong() {
 }
 
 function parseID(url) {
-    return url.replace("youtu.be","youtube.com").split("youtube.com/")[1].replace("watch?v=","").replace("embed/","").split("?")[0].split("&")[0]
+    return url.replace("youtu.be", "youtube.com").split("youtube.com/")[1].replace("watch?v=", "").replace("embed/", "").split("?")[0].split("&")[0]
 }
