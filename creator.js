@@ -12,6 +12,7 @@ async function findVideos(song) {
         var error = instrumentals.error.errors[0]
         alert("There was an error finding videos:\nError Code: " + error.domain + "." + error.reason + "\nFind videos manually on YouTube, or try again later.")
         songFormContainer.style.marginTop = "20px";
+        progress.style.display = "none";
         showPreviews();
         return;
     }
@@ -24,6 +25,7 @@ async function findVideos(song) {
         var error = lyricVideos.error.errors[0]
         alert("There was an error finding videos:\nError Code: " + error.domain + "." + error.reason + "\nFind videos manually on YouTube, or try again later.")
         songFormContainer.style.marginTop = "20px";
+        progress.style.display = "none";
         showPreviews();
         return;
     }
