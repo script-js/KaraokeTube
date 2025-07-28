@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="creator.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1 style="text-align: center;">Saved Songs</h1>
+    <div id="items" style="display: flex;"></div>
+</body>
+<script>
+    JSON.parse(localStorage.getItem("saves")).forEach(function (e) {
+        var elem = document.createElement("a");
+        elem.href = e.url;
+        elem.classList = "savedSong"
+        var img = document.createElement("img");
+        img.src = e.icon;
+        var text = document.createElement("p");
+        text.style = "font-size: 25px;"
+        text.innerText = e.title;
+        elem.appendChild(img);
+        elem.appendChild(text);
+        items.appendChild(elem);
+    });
+</script>
+
+</html>

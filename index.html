@@ -1,6 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <script src="creator.js"></script>
-    </body>
+
+<head>
+    <script src="creator.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <form id="songForm">
+        <input placeholder="Song Name..." id="song" style="width: 50%;">
+        <input type="submit" value="search" class="material-symbols-outlined">
+        <button class="material-symbols-outlined" title="Save to Library" onclick="location.href = 'saves'"
+            title="View Saved Songs">library_books</button>
+        <button class="material-symbols-outlined" style="display: none;" id="savebtn" title="Save to Library"
+            onclick="saveSong()">save</button>
+    </form>
+    <p style="text-align: center;"><progress max="4" id="progress">Loading...</progress></p>
+    <div class="videoContainer" id="vcLeft">
+        <h1>Music</h1><iframe id="musicFrame" height="200" width="300" frameborder="0"></iframe>
+        <p>Video Start Time: <input id="musicStart" type="number" value="0" style="width: 50px;"
+                onchange="showFrame(musicFrame, instrumentalID, this.value)"> seconds</p>
+    </div>
+    <div class="videoContainer" id="vcRight">
+        <h1>Lyrics</h1><iframe id="lyricFrame" height="200" width="300" frameborder="0"></iframe>
+        <p>Video Start Time: <input id="lyricStart" type="number" value="0" style="width: 50px;"
+                onchange="showFrame(lyricFrame, lyricsID, this.value)"> seconds</p>
+    </div>
+    <p style="text-align: center;"><button onclick="window.open(getKaraokeURL())"
+            style="font-size: 30px; padding: 10px; display: none;" id="createbtn">Create</button></p>
+    <script>
+        songForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            findVideos(song.value);
+        })
+    </script>
+</body>
+
 </html>
