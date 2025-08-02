@@ -7,24 +7,47 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
-    <h1 style="text-align: center;">Saved Songs</h1>
-    <div id="items" style="display: flex;"></div>
+<body style="text-align: center;">
+    <h1>Saved Songs</h1>
+    <p>Right click to delete</p>
+    <div id="items" style="display: flex; justify-content: center; flex-wrap: wrap;"></div>
 </body>
 <script>
-    JSON.parse(localStorage.getItem("saves")).forEach(function (e) {
-        var elem = document.createElement("a");
-        elem.href = e.url;
-        elem.classList = "savedSong"
-        var img = document.createElement("img");
-        img.src = e.icon;
-        var text = document.createElement("p");
-        text.style = "font-size: 25px;"
-        text.innerText = e.title;
-        elem.appendChild(img);
-        elem.appendChild(text);
-        items.appendChild(elem);
-    });
+    if (localStorage.getItem("saves")) {
+        JSON.parse(localStorage.getItem("saves")).forEach(function (e, i) {
+            if (e) {
+                var elem = document.createElement("a");
+                elem.href = e.url;
+                elem.classList = "savedSong"
+                var img = document.createElement("img");
+                img.src = e.icon;
+                img.addEventListener("contextmenu", function (event) {
+                    event.preventDefault();
+                    var p = confirm("Are you sure you want to remove \"" + e.title + "\" from your saves?")
+                    if (p) {
+                        var tempSaves = JSON.parse(localStorage.getItem("saves"))
+                        if (tempSaves.length > 1) {
+                            console.log(i, tempSaves[i])
+                            tempSaves.splice(i, 1);
+                            console.log(tempSaves)
+                            localStorage.setItem("saves", JSON.stringify(tempSaves));
+                        } else {
+                            localStorage.removeItem("saves")
+                        }
+                        location.reload();
+                    }
+                })
+                var text = document.createElement("p");
+                text.style = "font-size: 25px;"
+                text.innerText = e.title;
+                elem.appendChild(img);
+                elem.appendChild(text);
+                items.appendChild(elem);
+            }
+        });
+    } else {
+        items.innerHTML = "<p style='margin-top:50px'>No saved songs</p>"
+    }
 </script>
 
 </html>
