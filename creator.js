@@ -33,16 +33,20 @@ async function findVideos(song) {
     otherLyricVideos = lyricVideos.items;
     var lyrics = lyricVideos.items[0].id.videoId;
     progress.value++;
-    progress.style.display = "none";
-    songFormContainer.style.marginTop = "20px";
     showPreviews(instrumental, lyrics)
 }
 
 function showPreviews(musicID, lyricID) {
+    progress.style.display = "none";
+    songFormContainer.style.marginTop = "20px";
     instrumentalID = musicID;
     lyricsID = lyricID;
-    showFrame(musicFrame, musicID)
-    showFrame(lyricFrame, lyricID)
+    if (musicID) {
+        showFrame(musicFrame, musicID)
+    }
+    if (lyricID) {
+        showFrame(lyricFrame, lyricID)
+    }
     vcLeft.style.display = "inline-block";
     vcRight.style.display = "inline-block";
     savebtn.style.display = "block";

@@ -16,21 +16,25 @@
         </form>
         <button class="material-symbols-outlined" title="View Saves" onclick="location.href = 'saves'"
             title="View Saved Songs">library_books</button>
+        <button class="material-symbols-outlined" title="Manually Create" onclick="showPreviews()"
+            title="View Saved Songs">edit</button>
         <button class="material-symbols-outlined" style="display: none;" id="savebtn" title="Save Song"
             onclick="saveSong()">save</button>
     </div>
     <p style="text-align: center;"><progress max="4" id="progress">Loading...</progress></p>
     <div class="videoContainer" id="vcLeft">
-        <h1>Music</h1><iframe id="musicFrame" height="200" width="300" frameborder="0"></iframe>
+        <h1>Music</h1><iframe id="musicFrame" height="200" width="300" frameborder="0" src="novideo.html"></iframe>
         <p>Video Start Time: <input id="musicStart" type="number" value="0" style="width: 50px;"
                 onchange="showFrame(musicFrame, instrumentalID, this.value)"> seconds</p>
-        <input onchange="instrumentalID = parseID(this.value); showFrame(musicFrame, instrumentalID)" placeholder="Custom Video URL...">
+        <input onchange="instrumentalID = parseID(this.value); showFrame(musicFrame, instrumentalID)"
+            placeholder="Custom Video URL...">
     </div>
     <div class="videoContainer" id="vcRight">
-        <h1>Lyrics</h1><iframe id="lyricFrame" height="200" width="300" frameborder="0"></iframe>
+        <h1>Lyrics</h1><iframe id="lyricFrame" height="200" width="300" frameborder="0" src="novideo.html"></iframe>
         <p>Video Start Time: <input id="lyricStart" type="number" value="0" style="width: 50px;"
                 onchange="showFrame(lyricFrame, lyricsID, this.value)"> seconds</p>
-        <input onchange="lyricsID = parseID(this.value); showFrame(lyricFrame, lyricsID)" placeholder="Custom Video URL...">
+        <input onchange="lyricsID = parseID(this.value); showFrame(lyricFrame, lyricsID)"
+            placeholder="Custom Video URL...">
     </div>
     <p style="text-align: center;"><button onclick="window.open(getKaraokeURL())"
             style="font-size: 30px; padding: 10px; display: none;" id="createbtn">Play</button></p>
