@@ -37,6 +37,7 @@ async function findVideos(song) {
 }
 
 function showPreviews(musicID, lyricID) {
+    manualbtn.style.display = "none";
     progress.style.display = "none";
     songFormContainer.style.marginTop = "20px";
     instrumentalID = musicID;

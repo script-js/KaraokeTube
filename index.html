@@ -12,11 +12,11 @@
     <div id="songFormContainer">
         <form id="songForm" style="width: 50%;">
             <input placeholder="Song Name..." id="song" style="width: 100%;">
-            <input type="submit" value="search" class="material-symbols-outlined">
+            <input type="submit" value="search" title="Search" class="material-symbols-outlined">
         </form>
         <button class="material-symbols-outlined" title="View Saves" onclick="location.href = 'saves'"
             title="View Saved Songs">library_books</button>
-        <button class="material-symbols-outlined" title="Manually Create" onclick="showPreviews()"
+        <button class="material-symbols-outlined" id="manualbtn" title="Manually Create" onclick="showPreviews()"
             title="View Saved Songs">edit</button>
         <button class="material-symbols-outlined" style="display: none;" id="savebtn" title="Save Song"
             onclick="saveSong()">save</button>

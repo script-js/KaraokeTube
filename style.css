@@ -81,16 +81,6 @@ form input[type="submit"],
     border-radius: 100%;
 }
 
-@keyframes fadein {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
 @keyframes fromright {
     0% {
         transform: translate(100%, 100%);
@@ -117,11 +107,6 @@ form input[type="submit"],
 
 #vcRight {
     animation: fromright 500ms ease-out;
-}
-
-#savebtn,
-#createbtn {
-    animation: fadein 1s ease-out 500ms;
 }
 
 .savedSong {
