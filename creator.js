@@ -1,5 +1,3 @@
-var otherInstrumentals;
-var otherLyricVideos;
 var instrumentalID;
 var lyricsID;
 
@@ -17,8 +15,11 @@ async function findVideos(song) {
         return;
     }
     progress.value++;
-    otherInstrumentals = instrumentals.items;
-    var instrumental = instrumentals.items[0].id.videoId;
+    if (instrumentals.items[0]) {
+        var instrumental = instrumentals.items[0].id.videoId;
+    } else {
+        var instrumental;
+    }
     progress.value++;
     var lyricVideos = await (await fetch("https://www.googleapis.com/youtube/v3/search?q=" + song + " lyric video&type=video&videoEmbeddable=true&key=AIzaSyA-ZFrKnMfSPvRnNzk2g7rMNuAEGnCmn00&part=snippet&maxResults=50")).json();
     if (lyricVideos.error) {
@@ -30,8 +31,11 @@ async function findVideos(song) {
         return;
     }
     progress.value++;
-    otherLyricVideos = lyricVideos.items;
-    var lyrics = lyricVideos.items[0].id.videoId;
+    if (lyricVideos.items[0]) {
+        var lyrics = lyricVideos.items[0].id.videoId;
+    } else {
+        var lyrics;
+    }
     progress.value++;
     showPreviews(instrumental, lyrics)
 }
@@ -58,7 +62,10 @@ function showFrame(frame, id, time) {
     if (!time) {
         time = 0;
     }
-    frame.src = "https://www.youtube.com/embed/" + id + "?start=" + time;
+    var url = "https://www.youtube.com/embed/" + id + "?start=" + time;
+    frame.src = url;
+    frame.parentElement.querySelectorAll("input")[1].value = url
+
 }
 
 function getKaraokeURL() {
